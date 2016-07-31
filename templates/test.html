@@ -1,0 +1,157 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>百分点中文语义分析平台</title>
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/static/css/jquery.fullPage.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/jqcloud.css"/>
+    <link href="/static/css/main.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <link rel="shortcut icon" href="/static/images/ico/bfd_favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/static/images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114"
+          href="/static/images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72"
+          href="/static/images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/static/images/ico/apple-touch-icon-57-precomposed.png">
+    <script src="/static/js/jquery.js"></script>
+    <style type="text/css">
+        .fullPage-tooltip {
+            float: left;
+            top: 0;
+            margin-right: 5px;
+            font: 12px "Microsoft Yahei";
+            color: #0099FE;
+            line-height: 21px;
+        }
+
+        .btn-right {
+            margin: 0px;
+        }
+
+        #showmenu {
+            margin: 0;
+            padding: 0px;
+            position: fixed;
+            left: 30%;
+            top: 80px;
+            list-style-type: none;
+            z-index: 70;
+        }
+
+        #showmenu li {
+            float: left;
+            margin: 0 10px 0 0;
+            font-size: 14px;
+        }
+{##}
+{#        #showmenu a {#}
+{#            float: left;#}
+{#            padding: 10px 20px;#}
+{#            background-color: #fff;#}
+{#            color: #333;#}
+{#            text-decoration: none;#}
+{#        }#}
+{##}
+{#        #showmenu .active a {#}
+{#            color: #fff;#}
+{#            background-color: #df0615;#}
+{#        }#}
+    </style>
+    <script src="/static/js/jquery-ui.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.fullPage.js"></script>
+    <script type="text/javascript" src="/static/js/jqcloud-1.0.4.min.js"></script>
+    <script type="text/javascript" src="/static/js/pt.js"></script>
+<script src="/static/js/jquery.js"></script>
+<script src="/static/js/jquery-ui.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.each(apis,function(i, v){
+                if (v['name'] != '') {
+                    $('#api_list').append('<option value="'+i+'">'+v['name']+'</option> ');
+                }
+            });
+        $('#api_list').change(function(){
+            var key = $(this).children('option:selected').val();
+            $('#params').val(apis[key]['params']);
+        });
+
+        });
+
+
+var apis = {
+    "sentiment_weibo":{"name":"微博分析","api":"/sentiment_weibo","params":"{'token':'', 'content': '','mode':''}"},
+    "sentiment_auto": {"name":"汽车分析","api":"/sentiment_auto","params":"{'token':'', 'content': '','mode':''}"},
+    "sentiment_news":{"name":"新闻分析","api":"/sentiment_news","params":"{'token':'', 'content': '','mode':''}"},
+    "sentiment_finance":{"name":"财经分析","api":"/sentiment_finance","params":"{'token':'', 'content': '','mode':''}"},
+    "auto_summary": "/auto_summary",
+    "result_url": "result",
+    "keywords_url": "/keywords",
+    "media_label": "/media_label",
+    "item_label": "/item_label",
+    "reputation": "/reputation",
+    "crawle_weibo": "/crawle_weibo",
+    "crawle_media": "/crawle_media"
+
+};
+
+        function test(){
+            var api = $('#api').val();
+            var params = $('#params').val();
+            $.post('/testapi', {'api': api, 'params': params, 'mode': mode}, function (data) {
+                $('#result').append(data)
+            });
+        }
+
+    </script>
+</head>
+<body>
+    <div id="header" role="banner">
+        <div class="container">
+            <div id="navbar" class="navbar navbar-default">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/"></a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/">首页</a></li>
+                    </ul>
+                    <div class="navbar-right">
+                </div>
+
+            </div>
+        </div>
+    </div><!--/#header-->
+        </div>
+<div class="panel panel-default" style="padding-top:100px;">
+<div class="panel-heading">测试</div>
+    <div class="panel-body">
+        <div class="form-group">
+    <input type="text" id="api" width="200px"  class="form-control" /><button onclick="test()" >提交</button>
+            <select id="api_list">
+                <option value="/sentiment_weibo">微博分析</option>
+            </select>
+    <textarea rows="10" cols="30" id="params"  class="form-control">
+
+    </textarea>
+            </div>
+    <div id="result"> </div>
+</div>
+</div>
+</body>
+</html>

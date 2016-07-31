@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>百分点中文语义分析平台</title>
+<link href="/static/css/bootstrap.min.css" rel="stylesheet">
+<link href="/static/css/font-awesome.min.css" rel="stylesheet">
+<link href="/static/css/prettyPhoto.css" rel="stylesheet">
+<link href="/static/css/main.css" rel="stylesheet">
+<link href="/static/css/user.css" rel="stylesheet">
+<!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+<link rel="shortcut icon" href="/static/images/ico/bfd_favicon.ico">
+<link rel="apple-touch-icon-precomposed" sizes="144x144"
+    href="/static/images/ico/apple-touch-icon-144-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114"
+    href="/static/images/ico/apple-touch-icon-114-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72"
+    href="/static/images/ico/apple-touch-icon-72-precomposed.png">
+<link rel="apple-touch-icon-precomposed"
+    href="/static/images/ico/apple-touch-icon-57-precomposed.png">
+<script type="text/javascript">
+	function change_tel() {
+		var text = document.getElementById("tel");
+		var val = text.innerHTML;
+		text.innerHTML = "<input type='text' id='user_tel' name='user_tel' value="+val+" />";
+		document.getElementById("user_tel").addEventListener(
+				"blur",
+				function(e) {
+					document.getElementById("hidden_tel").value = document
+							.getElementById("user_tel").value;
+					text.innerHTML = document.getElementById("user_tel").value;
+				});
+	};
+</script>
+</head>
+<!--/head-->
+<body data-spy="scroll" data-target="#navbar" data-offset="0">
+    <div id="header" role="banner">
+        <div class="container">
+            <div id="navbar" class="navbar navbar-default">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle"
+                        data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span> <span
+                            class="icon-bar"></span> <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/"></a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/" target="_self">首页</a></li>
+                        <li><a href="/show">演示</a></li>
+                        <li><a href="/developer/">开发者</a></li>
+                    </ul>
+                    <div class="navbar-right">
+                        {% if username %} <a href="#"><i class="icon-user"></i>{{username}}</a>
+                        | <a href="/logout"><i class="icon-signout"></i> 退出</a>
+                    </div>
+                    {% else %} <a href="/login"><i class="icon-user"></i>登录</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    </div>
+    <!--/#header-->
+    <div class="row" style="margin-top: 90px;">
+        <div class="container">
+            <div class="panel panel-default" style="margin-bottom: 0px;">
+                <div class="panel-heading" style="padding: 10px">用户基本信息</div>
+                <div class="panel-body">
+                    <form method="post" action="tel">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <th width="150"
+                                        style="color: #666; background: #f8f8f8;"><div
+                                            align="right">
+                                            <strong>邮箱</strong>
+                                        </div></th>
+                                    <th colspan="2">{{email}}
+                                        <div align="center"></div>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th width="150"
+                                        style="color: #666; background: #f8f8f8;"><div
+                                            align="right">
+                                            <strong>手机号</strong>
+                                        </div></th>
+                                    <th><div id="tel" name="tel">{{tel}}</div>
+                                        <input type="hidden" id="hidden_tel"
+                                        name="hidden_tel" /><input
+                                        type="hidden" id="hidden_username"
+                                        name="hidden_username"
+                                        value="{{username}}"></th>
+                                    <th width="200"><div align="center">
+                                            <button class="btn btn-edit"
+                                                type="button"
+                                                onclick="change_tel()">编辑</button>
+                                            <button class="btn btn-edit"
+                                                type="submit" name="save_tel">保存</button>
+                                        </div></th>
+                                </tr>
+                                <tr>
+                                    <th width="150"
+                                        style="color: #666; background: #f8f8f8;"><div
+                                            align="right">
+                                            <strong>Token</strong>
+                                        </div></th>
+                                    <th colspan="2">{{token}}
+                                        <div align="center"></div>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th width="150"
+                                        style="color: #666; background: #f8f8f8;"><div
+                                            align="right">
+                                            <strong>Token有效期</strong>
+                                        </div></th>
+                                    <th colspan="2">{{token_expiration}}
+                                        <div align="center"></div>
+                                    </th>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <form>
+                            <p>&nbsp;</p>
+                            {% ifequal '2a5ee64c-35cd-11e5-88fc-ecf4bbd6bc40' token %}
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>功能名称</th>
+                                        <th>总调用（次）</th>
+                                        <th>已调用（次）</th>
+                                        <th>剩余调用（次）</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th colspan="4" class="title-row"><i
+                                            class="icon-heart"></i> 情感分析</th>
+                                    </tr>
+                                    <tr>
+                                        <th>微博</th>
+                                        <th>不限次数</th>
+                                        <th><a target="_blank">{{ senti_count_weibo }}</a></th>
+                                        <th>不限次数</th>
+                                    </tr>
+                                    <tr>
+                                        <th>汽车</th>
+                                        <th>次数不限</th>
+                                        <th><a target="_blank">{{senti_count_auto}}</a></th>
+                                        <th>不限次数</th>
+                                    </tr>
+                                    <tr>
+                                        <th>新闻</th>
+                                        <th>不限次数</th>
+                                        <th><a target="_blank">{{senti_count_news}}</a></th>
+                                        <th>不限次数</th>
+                                    </tr>
+                                    <tr>
+                                        <th>金融</th>
+                                        <th>不限次数</th>
+                                        <th><a target="_blank">{{senti_count_finance}}</a></th>
+                                        <th>不限次数</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="4" class="title-row"><i
+                                            class="icon-fire"></i> 热点分析<a
+                                            href="#" target="_blank"></a></th>
+                                    </tr>
+                                    <tr>
+                                        <th>&nbsp;</th>
+                                        <th>不限次数</th>
+                                        <th><a target="_blank">{{keywords_count}}</a></th>
+                                        <th>不限次数</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="4" class="title-row"><i
+                                            class="icon-thumbs-up"></i> 口碑分析<a
+                                            href="#" target="_blank"></a></th>
+                                    </tr>
+                                    <tr>
+                                        <th>&nbsp;</th>
+                                        <th>不限次数</th>
+                                        <th><a target="_blank">{{reputation_get_result_count}}</a></th>
+                                        <th>不限次数</th>
+                                    </tr>
+                                    <!--
+                      <tr>
+                        <th>汽车</th>
+                        <th>500</th>
+                        <th><a href="detail/" target="_blank">150</a></th>
+                        <th>340</th>
+                      </tr>
+                      -->
+                                    <tr>
+                                        <th colspan="4" class="title-row"><i
+                                            class="icon-tags"></i> 标签提取<a
+                                            href="#" target="_blank"></a></th>
+                                    </tr>
+                                    <tr>
+                                        <th>媒体</th>
+                                        <th>不限次数</th>
+                                        <th><a target="_blank">{{media_label_count}}</a></th>
+                                        <th>不限次数</th>
+                                    </tr>
+                                    <tr>
+                                        <th>商品</th>
+                                        <th>不限次数</th>
+                                        <th><a target="_blank">{{item_label_count}}</a></th>
+                                        <th>不限次数</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="4" class="title-row"><i
+                                            class="icon-list"></i> 自动摘要<a
+                                            href="#" target="_blank"></a></th>
+                                    </tr>
+                                    <tr>
+                                        <th>&nbsp;</th>
+                                        <th>不限次数</th>
+                                        <th><a target="_blank">{{auto_summary_count}}</a></th>
+                                        <th>不限次数</th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            {% else %}
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>功能名称</th>
+                                        <th>总调用（次）</th>
+                                        <th>已调用（次）</th>
+                                        <th>剩余调用（次）</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th colspan="4" class="title-row"><i
+                                            class="icon-heart"></i> 情感分析</th>
+                                    </tr>
+                                    <tr>
+                                        <th>微博</th>
+                                        <th>{{ senti_weibo_total_count }}</th>
+                                        <th><a target="_blank">{{ senti_count_weibo }}</a></th>
+                                        <th>{{ senti_weibo_rest_count }}</th>
+                                    </tr>
+                                    <tr>
+                                        <th>汽车</th>
+                                        <th>{{senti_auto_total_count}}</th>
+                                        <th><a target="_blank">{{senti_count_auto}}</a></th>
+                                        <th>{{ senti_auto_rest_count }}</th>
+                                    </tr>
+                                    <tr>
+                                        <th>新闻</th>
+                                        <th>{{senti_news_total_count}}</th>
+                                        <th><a target="_blank">{{senti_count_news}}</a></th>
+                                        <th>{{ senti_news_rest_count }}</th>
+                                    </tr>
+                                    <tr>
+                                        <th>金融</th>
+                                        <th>{{senti_finance_total_count}}</th>
+                                        <th><a target="_blank">{{senti_count_finance}}</a></th>
+                                        <th>{{ senti_finance_rest_count }}</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="4" class="title-row"><i
+                                            class="icon-fire"></i> 热点分析<a
+                                            href="#" target="_blank"></a></th>
+                                    </tr>
+                                    <tr>
+                                        <th>&nbsp;</th>
+                                        <th>{{keywords_total_count}}</th>
+                                        <th><a target="_blank">{{keywords_count}}</a></th>
+                                        <th>{{keywords_rest_count}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="4" class="title-row"><i
+                                            class="icon-thumbs-up"></i> 口碑分析<a
+                                            href="#" target="_blank"></a></th>
+                                    </tr>
+                                    <tr>
+                                        <th>&nbsp;</th>
+                                        <th>{{reputation_get_result_total_count}}</th>
+                                        <th><a target="_blank">{{reputation_get_result_count}}</a></th>
+                                        <th>{{reputation_get_result_rest_count}}</th>
+                                    </tr>
+                                    <!--
+                      <tr>
+                        <th>汽车</th>
+                        <th>500</th>
+                        <th><a href="detail/" target="_blank">150</a></th>
+                        <th>340</th>
+                      </tr>
+                      -->
+                                    <tr>
+                                        <th colspan="4" class="title-row"><i
+                                            class="icon-tags"></i> 标签提取<a
+                                            href="#" target="_blank"></a></th>
+                                    </tr>
+                                    <tr>
+                                        <th>媒体</th>
+                                        <th>{{media_label_total_count}}</th>
+                                        <th><a target="_blank">{{media_label_count}}</a></th>
+                                        <th>{{media_label_rest_count}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th>商品</th>
+                                        <th>{{item_label_total_count}}</th>
+                                        <th><a target="_blank">{{item_label_count}}</a></th>
+                                        <th>{{item_label_rest_count}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="4" class="title-row"><i
+                                            class="icon-list"></i> 自动摘要<a
+                                            href="#" target="_blank"></a></th>
+                                    </tr>
+                                    <tr>
+                                        <th>&nbsp;</th>
+                                        <th>{{auto_summary_total_count}}</th>
+                                        <th><a target="_blank">{{auto_summary_count}}</a></th>
+                                        <th>{{auto_summary_rest_count}}</th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            {% endifequal %}
+                        </form>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/#row-->
+    <footer id="footer">
+        <div class="container">
+            <div class="row">
+                <div align="center">Copyright©2015 Baifendian Corporation
+                    All Right Reserved. 京ICP备09109727号 京公网安备11010802010283号</div>
+            </div>
+        </div>
+        </div>
+    </footer>
+    <!--/#footer-->
+</body>
+</html>

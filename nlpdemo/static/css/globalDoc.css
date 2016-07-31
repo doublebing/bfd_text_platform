@@ -1,0 +1,16 @@
+table{
+
+	table-layout: fixed;
+
+	width: 100%;
+
+	border-collapse: collapse;
+
+}
+
+pre{
+
+	padding:10px 13px !important;
+	background-color: #F1ECEC;
+
+}

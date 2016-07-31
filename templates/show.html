@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>百分点中文语义分析平台</title>
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/static/css/jquery.fullPage.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/jqcloud.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/font-awesome.min.css"/>
+
+    <link href="/static/css/main.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <link rel="shortcut icon" href="/static/images/ico/bfd_favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/static/images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114"
+          href="/static/images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72"
+          href="/static/images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/static/images/ico/apple-touch-icon-57-precomposed.png">
+    <script src="/static/js/jquery.js"></script>
+    <style type="text/css">
+       .fullPage-tooltip {
+            float: left;
+            top: 0;
+            margin-right: 5px;
+            font: 12px "Microsoft Yahei";
+            color: #0099FE;
+            line-height: 21px;
+        }
+
+        .btn-right {
+            margin: 0px;
+        }
+
+{#        #showmenu {#}
+{#            margin: 0;#}
+{#            padding: 0px;#}
+{#            position: fixed;#}
+{#            left: 30%;#}
+{#            top: 75px;#}
+{#            list-style-type: none;#}
+{#            z-index: 70;#}
+{#        }#}
+{##}
+{#        #showmenu li {#}
+{#            float: left;#}
+{#            margin: 0 10px 0 0;#}
+{#            font-size: 14px;#}
+{#        }#}
+{##}
+{#        #showmenu a {#}
+{#            float: left;#}
+{#            padding: 10px 20px;#}
+{#            background-color: #fff;#}
+{#            color: #333;#}
+{#            text-decoration: none;#}
+{#        }#}
+{##}
+{#        #showmenu .active a {#}
+{#            color: #fff;#}
+{#            background-color: #df0615;#}
+{#        }#}
+        .section{
+            padding-top: 140px;
+            background-image: url(/static/images/slider-bg.jpg);
+            background-repeat: no-repeat;
+            border:none;
+        }
+
+        .icon_red{
+            color: #df0615;
+
+        }
+         body {
+	background-image: url(/static/images/slider-bg.jpg);
+	background-repeat: no-repeat;
+}
+#showmenu {
+            width: 100%;
+            list-style: none;
+            background-color: #000000;
+            vertical-align: middle;
+            -webkit-border-radius:4px 4px 0 0;
+            -moz-border-radius:4px 4px 0 0;
+            -ms-border-radius:4px 4px 0 0;
+            border-radius:4px 4px 0 0;
+            padding-top:4px;padding-bottom:4px;
+            height: 45px;
+            line-height: 45px;
+            vertical-align:middle;
+        }
+
+        #showmenu li {
+            float: left;
+            font-size: 16px;
+            line-height: 37px;
+            vertical-align: middle;
+            width: 20%;
+            text-align: center;
+        }
+
+        #showmenu a {
+            padding:10px 20px;
+            line-height: 37px;
+            background-color: none;
+            color: #ffffff;
+            text-decoration: none;
+            -webkit-transition: all .8s ease-in-out .3s;
+            -moz-transition: all .8s ease-in-out .3s;
+            -ms-transition: all .8s ease-in-out .3s;
+            transition: all .8s ease-in-out .3s;
+        }
+
+        #showmenu .active a {
+            color: #fff;
+            background-color: #df0615;
+            -webkit-border-radius:4px;
+            -moz-border-radius:4px;
+            -ms-border-radius:4px;
+            -ms-border-radius:4px;
+            border-radius:4px;
+        }
+
+
+    </style>
+    <script src="/static/js/jquery-ui.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.fullPage.js"></script>
+    <script type="text/javascript" src="/static/js/jqcloud-1.0.4.min.js"></script>
+    <script type="text/javascript" src="/static/js/pt.js"></script>
+    <script type="text/javascript" src="/static/js/radialIndicator.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // $("#tabs").tabs();
+            // $("#result_tab").tabs();
+            $('#tabs a:first').tab('show');//初始化显示哪个tab
+            $('#hot_tabs a:first').tab('show');//初始化显示哪个tab
+            $('#hot_tabs a').click(function (e) {
+                e.preventDefault();//阻止a链接的跳转行为
+                $(this).tab('show');//显示当前选中的链接及关联的content
+            });
+            $('textarea').val('');
+            $('#tabs a').click(function (e) {
+                e.preventDefault();//阻止a链接的跳转行为
+                $(this).tab('show');//显示当前选中的链接及关联的content
+            });
+            $('#fullpage').fullpage({
+                'verticalCentered': false,
+                'css3': true,
+                'normalScrollElements':'textarea,.ants-render,#tags_content',
+                anchors: ['s1', 's2', 's3', 's4', 's5'],
+                'navigation': true,
+                'navigationPosition': 'right',
+                'navigationTooltips': ['情感分析', '热点分析', '口碑分析', '标签提取', '自动摘要'],
+                'scrollOverflow': true,
+                menu: '#showmenu',
+                paddingTop:200
+            });
+            //口碑分析内容初始化
+            //load_reputation
+            $('#btn_reputation_mobile').click();
+	    $("#positive_top5").click(function(){
+		var content = $('#sentiment_crawle_data').val();
+        	var content = trimStr(content);
+        	if('' == content){
+                // alert(content);
+                    $('#emotion_positive').html("提示：抓取系统内容不能为空!");
+                }
+	    });
+	    $("#negative_top5").click(function(){
+		var content = $('#sentiment_crawle_data').val();
+        	var content = trimStr(content);
+        	if('' == content){
+                // alert(content);
+                    $('#emotion_negitive').html("提示：抓取系统内容不能为空!");
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="header" role="banner">
+        <div class="container">
+            <div id="navbar" class="navbar navbar-default">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/"></a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/" target="_self">首页</a></li>
+                        <li class="active"><a href="#" target="_self">演示</a></li>
+                        <li><a href="/developer/" target="_self">开发者</a></li>
+                    </ul>
+                    <div class="navbar-right">
+                        {%  if username  %}
+                        <p id="user"><a href="/user"><i class="icon-user"></i>{{username}}</a><a id="logout" href="/logout">|<span id="logout"><i class="icon-signout"></i> 退出</span></a></p>
+                        {% else %}
+                        <a href="/login"><i class="icon-user"></i> 登录</a>
+                        {% endif %}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div><!--/#header-->
+<div id="fullpage" class="panel" style="border: none;">
+    <div class="section" id="section1">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="title"><i class="icon-heart"></i>&nbsp;&nbsp;情感分析</div>
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <ul class="nav nav-tabs" id="tabs">
+                                <li role="presentation"><a href="#url_input" onclick="showPanel('sentiment_result')">抓取系统</a>
+                                </li>
+                                <li role="presentation"><a href="#text_input" onclick="showPanel('compare_result')">文本输入</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="panel-body">
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="url_input">
+                                    <div class="form-inline">
+                                        <div class="form-group">
+                                            <select class="form-control input-sm" id="datasource">
+                                                <option value="nods">请选择数据源</option>
+                                                <option value="weibo" selected>微博</option>
+{#                                                <option value="urls">URL</option>#}
+                                            </select>
+                                        </div>
+                                        <div class="form-group" style="width: 130px">
+                                            <input id="sentiment_keywords" type="text" class="form-control input-sm" placeholder="输入关键字"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <button class="btn btn-sm " style="background-color: #df0615;color:#ffffff;" onclick="crawler_sentiment()">抓取</button>
+                                        </div>
+                                    </div>
+
+                            <textarea  class="form-control" readonly  rows="12" id="sentiment_crawle_data" value="">
+
+                            </textarea>
+                                </div>
+                                <div class="tab-pane" id="text_input">
+                       <textarea  class="form-control" rows="15" id="sentiment_input_data" value="">
+
+                         </textarea>
+                                </div>
+                                <button id="analyze_text" class="btn btn-sm"  style="width: 100%;margin: 0px;background-color: #df0615;color:#ffffff;"  onclick="get_sentiment()">
+                                    提交
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8" style="padding-left:0px;">
+                    <div class="result-title">
+                        <div style="float:left">分析结果</div>
+                        <div style="border:2px solid #ddd; width:485px; float:left; margin:10px 10px 0 10px;"></div>
+                        <div class="btn-group" role="group" aria-label="..." style="float: right">
+              <div class="btn-group btn-group-sm" role="group">
+                <button type="button" class="btn btn-tabs btn-right light_btn2"
+                                            onclick="getSentiment('sentiment_weibo')" id="btn_sentiment_weibo">微博 </button>
+              </div>
+              <div class="btn-group btn-group-sm" role="group">
+                <button type="button" class="btn btn-tabs btn-right"
+                                            onclick="getSentiment('sentiment_auto')"  id="btn_sentiment_auto">汽车 </button>
+              </div>
+              <div class="btn-group btn-group-sm" role="group">
+                <button type="button" class="btn btn-tabs btn-right"
+                                            onclick="getSentiment('sentiment_news')"  id="btn_sentiment_news">新闻 </button>
+              </div>
+              <div class="btn-group btn-group-sm" role="group" aria-label="金融">
+                <button type="button" class="btn btn-tabs  btn-right"
+                      onclick="getSentiment('sentiment_finance')"  id="btn_sentiment_finance">金融 </button>
+              </div>
+              </div>
+                        </div>
+                   <div class="panel panel-default" id="sentiment_result">
+                        <div class="panel-heading">
+                            <ul class="nav nav-tabs" role="tablist">
+                                    <li role="presentation" class="active"><a id="positive_top5" href="#emotion_positive" aria-controls="home" role="tab"
+                                                                              data-toggle="tab">正面TOP5</a></li>
+                                    <li role="presentation"><a id="negative_top5" href="#emotion_negitive" aria-controls="profile" role="tab"
+                                                               data-toggle="tab">负面TOP5</a></li>
+                                </ul>
+                        </div>
+                        <div class="panel-body">
+                            <!-- 情感分析结果start-->
+                                <!-- Nav tabs -->
+
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane active" id="emotion_positive">
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="emotion_negitive"></div>
+                                </div>
+                            <!-- 情感分析结果end-->
+                        </div>
+
+                        <!--panel body end-->
+
+                    </div>
+                     <div style="display: none;borer:1px;" class="panel panel-default" id="compare_result">
+                         </div>
+                    <!--panel  end-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section" id="section2">
+        <div class="container-fluid" style="background-color:#f3f3f3">
+            <div class="row">
+                <div class="title"><i class="icon-fire"></i> 热点分析</div>
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                             <ul class="nav nav-tabs" id="hot_tabs">
+                                <li role="presentation"><a href="#hot_url_input"
+                                                           onclick="showPanel('multiple')">抓取系统</a></li>
+                                <li role="presentation"><a href="#tab_hot_text"
+                                                           onclick="showPanel('single')">文本输入</a></li>
+                            </ul>
+                        </div>
+                        <div class="panel-body">
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="hot_url_input">
+                                    <div class="form-inline">
+                                        <div class="form-group">
+                                            <select class="form-control input-sm" id="hot_datasource">
+                                                <option value="nods">请选择数据源</option>
+                                                <option value="weibo" selected>微博</option>
+{#                                                <option value="urls">URL</option>#}
+                                            </select>
+                                        </div>
+                                        <div class="form-group" style="width: 130px">
+                                            <input type="text" placeholder="输入关键字" class="form-control input-sm" id="hotwords_keywords"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <button class="btn btn-sm"  style="background-color: #df0615;color:#ffffff;"  onclick="crawler_hotwords()">抓取</button>
+                                        </div>
+                                    </div>
+
+                            <textarea class="form-control" readonly rows="12" id="keywords_crawle_data" >
+
+                            </textarea>
+                                </div>
+                                <div class="tab-pane" id="tab_hot_text">
+                               <textarea class="form-control" rows="15" id="keywords_input_data">
+
+                               </textarea>
+                                </div>
+                                <button id="analyze_hot" class="btn btn-sm"  style="width: 100%;margin: 0px;background-color: #df0615;color:#ffffff;"  onclick="get_keywords()">提交</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8" style="padding-left:0px;">
+                     <div class="result-title">
+                         <div style="float:left">分析结果</div>
+                         <div style="border:2px solid #ddd; width:670px; float:left; margin:10px 10px 0 10px;"></div>
+                         </div>
+                    <div class="panel panel-default">
+
+                        <div class="panel-body">
+                            <div id="hot_words" style="height: 350px;">
+
+
+                            </div>
+                        </div>
+                        <!--panel body end-->
+                    </div>
+                    <!--panel  end-->
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="section" id="section3">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="title"><i class="icon-thumbs-up"></i> 口碑分析</div>
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <input type="hidden" id="current_task_id" />
+                            <textarea class="form-control" style="margin-bottom: 10px;" rows="15" id="reputation_input_text" readonly>
+
+                            </textarea>
+                             <button id="analyze_paise" class="btn btn-sm" style="width: 100%;margin: 0px;background-color: #df0615;color:#ffffff;" onclick="changeData('mobile')">换一批试试</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8" style="padding-left:0px;">
+                    <div class="result-title">
+                        <div style="float:left">分析结果</div>
+                        <div style="border:2px solid #ddd; width:575px; float:left; margin:10px 10px 0 10px;"></div>
+                        <div class="btn-group" role="group" aria-label="..." style="float: right">
+                            <div class="btn-group btn-group-sm" role="group">
+                                    <button type="button" class="btn btn-tabs btn-right" id="btn_reputation_mobile" onclick="load_repuation_data('mobile')">
+                                        手机
+                                    </button>
+                                </div>
+                                <div class="btn-group btn-group-sm" role="group">
+                                    <button type="button" class="btn btn-tabs btn-right" id="btn_reputation_car" onclick="load_repuation_data('car')">
+                                        汽车
+                                    </button>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-body" id="reputation_result">
+<div class="btn-group" role="group"  data-toggle="buttons" id="reputation_tags">
+</div>
+<div class="ants-render">
+<ul class="list-group" id="reputation_lists">
+
+  </ul>
+</div>
+                        </div>
+                        <!--panel body end-->
+
+                    </div>
+
+                    <!--panel  end-->
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="section" id="section4">
+        <div class="container-fluid" style="background-color:#f3f3f3">
+            <div class="row">
+                <div class="title"><i class="icon-tags"></i> 标签提取</div>
+                <div class="col-md-12">
+
+
+                            <div class="form-inline">
+                                <div class="form-group">
+                                    <input type="text" class="form-control input-sm" id="tags_url" style="width:1000px;" value="" placeholder="">
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-default btn-sm " style="padding-left:25px;padding-right:25px; margin-left:15px;" onclick="load_label()">提取</button>
+                                </div>
+                            </div>
+
+                                <div class="panel panel-default">
+                                 <div id="tags_content">
+                                 </div>
+{#                                 <div class="collapse" style="height:40px;display: none;" id="tags_content2"></div>#}
+{#                                    <a href="#tags_content2" class="btn btn-sm" data-toggle="collapse">查看全部</a>#}
+{#                                <div class=""></div>#}
+                                </div>
+                    <div class="panel-heading">
+                        <div class="result-title">
+                                    <div style="float:left">分析结果</div>
+                                    <div style="border:2px solid #ddd; width:950px; float:left; margin:10px 10px 0 10px;"></div>
+                                    <div class="btn-group" role="group" style="float: right">
+                                         <div class="btn-group btn-group-sm" role="group">
+                                            <button type="button" class="btn btn-tabs btn-right light_btn2" id="btn_media_label"
+                                                    onclick="media_label(this);">媒体
+                                            </button>
+                                        </div>
+                                        <div class="btn-group btn-group-sm" role="group">
+                                            <button type="button" class="btn btn-tabs btn-right" id="btn_item_label" onclick="item_label(this);">商品
+                                            </button>
+                                        </div>
+                                    </div>
+                            </div>
+                                </div>
+                            <div class="panel panel-default">
+
+                                <div class="panel-body" style="height: 200px;" id="tags_result">
+
+                                </div>
+                                <!--panel body end-->
+
+                            </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="section" id="section5">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="title"><i class="icon-list"></i> 自动摘要</div>
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <textarea class="form-control" style="margin-bottom: 10px;" rows="15" id="auto_summary_input">
+                            </textarea>
+                            <button id="analyze_chief" class="btn btn-sm"  style="width: 100%;margin: 0px;background-color: #df0615;color:#ffffff;"  onclick="auto_summary()">提交</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8" style="padding-left:0px;">
+          <div class="result-title">
+            <div style="float:left">分析结果</div>
+            <div style="border:2px solid #ddd; width:670px; float:left; margin:10px 10px 0 10px;"></div>
+          </div>
+          <div class="panel  panel-default" >
+            <div class="panel-heading">
+              <div class="panel-title">摘要内容</div>
+            </div>
+            <div class="panel-body"  id="auto_summary_result"> </div>
+            <!--panel body end-->
+          </div>
+          <!--panel  end-->
+        </div>
+
+                        <!--panel body end-->
+                    </div>
+                    <!--panel  end-->
+                </div>
+            </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+{#<ul id="showmenu" class="col-md-10" style="width: 1170px;">#}
+{#    <li data-menuanchor="s1"><a href="#1">情感分析</a></li>#}
+{#    <li data-menuanchor="s2"><a href="#2">热点分析</a></li>#}
+{#    <li data-menuanchor="s3"><a href="#3">口碑分析</a></li>#}
+{#    <li data-menuanchor="s4"><a href="#4">标签提取</a></li>#}
+{#    <li data-menuanchor="s5"><a href="#5">自动摘要</a></li>#}
+{#</ul>#}
+<div class="q-menu-render">
+      <div class="container">
+         <ul id="showmenu" class="col-md-10" style="">
+            <li data-menuanchor="s1"><a href="#1">情感分析</a></li>
+            <li data-menuanchor="s2"><a href="#2">热点分析</a></li>
+            <li data-menuanchor="s3"><a href="#3">口碑分析</a></li>
+            <li data-menuanchor="s4"><a href="#4">标签提取</a></li>
+            <li data-menuanchor="s5"><a href="#5">自动摘要</a></li>
+         </ul>
+    </div>
+  </div>
+
+</body>
+</html>
+

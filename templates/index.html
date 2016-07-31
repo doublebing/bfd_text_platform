@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>百分点中文语义分析平台</title>
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/static/css/prettyPhoto.css" rel="stylesheet">
+    <link href="/static/css/main.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <link rel="shortcut icon" href="/static/images/ico/bfd_favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/static/images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/static/images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/static/images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/static/images/ico/apple-touch-icon-57-precomposed.png">
+</head><!--/head-->
+
+<body data-spy="scroll" data-target="#navbar" data-offset="0">
+    <div id="header" role="banner">
+        <div class="container">
+            <div id="navbar" class="navbar navbar-default">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/"></a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">首页</a></li>
+                        <li><a href="show/">演示</a></li>
+                        <li><a href="/developer/">开发者</a></li>
+                    </ul>
+                    <div class="navbar-right">
+                        {%  if username  %}
+                        <p id="user"><a href="/user"><i class="icon-user"></i>{{username}}</a><a id="logout" href="/logout">|<span id="logout"><i class="icon-signout"></i> 退出</span></a></p>
+                        {% else %}
+                        <a href="/login"><i class="icon-user"></i> 登录</a>
+                        {% endif %}
+                </div>
+
+            </div>
+        </div>
+    </div><!--/#header-->
+</div>
+    <section id="main-slider" class="carousel">
+        <div class="carousel-inner">
+            <div class="item active" id="div_item_01">
+                <div class="container">
+                    <div class="carousel-content">
+                        <h1><strong>百分点中文语义分析平台</strong></h1>
+                        <p class="lead">理解自然语言 挖掘商业价值</p>
+                        <ul class="portfolio-filter">
+                        {% if username %}
+			    <li id="li01" style="display:none;"><a id="a_experience" class="btn btn-primary" href="/show/" style="border:0px;" >体验</a></li>
+                            <li id="li02" style="display:none;"><a id="a_login" class="btn btn-primary" href="/login"  style="border:0px;" >登录</a></li>
+                        {% else  %}
+                            <li id="li01"><a id="a_experience" class="btn btn-primary" href="/show/" style="border:0px;" >体验</a></li>                  
+                            <li id="li02"><a id="a_login" class="btn btn-primary" href="/login"  style="border:0px;" >登录</a></li>             
+                        {% endif %}
+			</ul>
+                    </div>
+                </div>
+            </div>
+      <!--/.item-->
+            <div class="item" id="div_item_02">
+                <div class="container">
+                    <div class="carousel-content">
+                        <h1><strong>理解自然语言 挖掘商业价值</strong></h1>
+                        <p class="lead">提供精准、快速、稳定的语义分析服务</p>
+                    </div>
+                </div>
+            </div>
+          <!--/.item-->
+        </div><!--/.carousel-inner-->
+        <a class="prev" href="#main-slider" data-slide="prev"><i class="icon-angle-left"></i></a>
+        <a class="next" href="#main-slider" data-slide="next"><i class="icon-angle-right"></i></a>    </section>
+    <!--/#main-slider-->
+
+    <section id="services">
+        <div class="container">
+            <div class="box first">
+<div class="row">
+                    <div class="col-md-4 col-sm-6">
+                        <div class="center">
+                            <i class="icon-heart icon-md icon-color1"></i>
+                            <h4><strong>情感分析</strong></h4>
+                            <p>利用先进深度学习技术，得出特定文本在不同行业领域的正负情感分值。</p>
+                        </div>
+                    </div><!--/.col-md-4-->
+                    <div class="col-md-4 col-sm-6">
+                        <div class="center">
+                            <i class="icon-tags icon-md icon-color2"></i>
+                            <h4><strong>自动标签</strong></h4>
+                          <p>借助百分点的海量数据优势，完成电商和媒体的自动标签提取。</p>
+                        </div>
+                    </div><!--/.col-md-4-->
+                    <div class="col-md-4 col-sm-6">
+                        <div class="center">
+                            <i class="icon-list icon-md icon-color3"></i>
+                            <h4><strong>自动摘要</strong></h4>
+                            <p>自动提取多文本的摘要，缩短文本长度，抓取关键内容。</p>
+                        </div>
+                    </div><!--/.col-md-4-->
+                    <div class="col-md-4 col-sm-6">
+                        <div class="center">
+                            <i class="icon-thumbs-up icon-md icon-color4"></i>
+                            <h4><strong>口碑分析</strong></h4>
+                            <p>深度剖析用户评价及喜好，从多个维度分析产品的市场评价，为企业产品升级优化提供数据支持服务。</p>
+                        </div>
+                    </div><!--/.col-md-4-->
+                    <div class="col-md-4 col-sm-6">
+                        <div class="center">
+                            <i class="icon-th-large icon-md icon-color5"></i>
+                            <h4><strong>热点分析</strong></h4>
+                            <p>通过分布式计算架构进行文本聚类，高效、快速满足用户聚类需求。</p>
+                        </div>
+                    </div><!--/.col-md-4-->
+                    <div class="col-md-4 col-sm-6">
+                        <div class="center">
+                            <i class="icon-screenshot icon-md icon-color6"></i>
+                            <h4><strong>个性定制</strong></h4>
+                            <p>针对特定行业、特定需求，提供解决方案和API服务，满足各个行业的大数据应用需求，加快企业向信息化转型。</p>
+                        </div>
+                    </div><!--/.col-md-4-->
+                </div><!--/.row-->
+            </div><!--/.box-->
+        </div><!--/.container-->
+    </section><!--/#services-->
+
+    
+
+    <footer id="footer">
+        <div class="container">
+            <div class="row">
+                    <div align="center">Copyrights©2015 Baifendian Corporation All Right Reserved. 	京ICP备09109727号	京公网安备11010802010283号
+                    </div>
+            </div>
+      </div>
+        </div>
+    </footer><!--/#footer-->
+
+    <script src="/static/js/jquery.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/jquery.isotope.min.js"></script>
+    <script src="/static/js/jquery.prettyPhoto.js"></script>
+    <script src="/static/js/main.js"></script>
+</body>
+</html>
